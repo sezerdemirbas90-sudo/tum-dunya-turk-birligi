@@ -38,7 +38,7 @@
     nav a {
       color: white;
       text-decoration: none;
-      margin-left: 22px;
+      margin-left: 20px;
     }
 
     .hero {
@@ -69,7 +69,7 @@
 
     .button {
       display: inline-block;
-      padding: 15px 30px;
+      padding: 14px 28px;
       border-radius: 8px;
       background: #d71920;
       color: white;
@@ -129,19 +129,22 @@
       z-index: 9999;
     }
 
-    .modal-box {
+    .box {
       background: white;
-      width: 90%;
-      max-width: 420px;
+      width: 92%;
+      max-width: 460px;
       padding: 30px;
       border-radius: 15px;
+      max-height: 90vh;
+      overflow-y: auto;
     }
 
-    .modal-box h2 {
+    .box h2 {
       margin-bottom: 20px;
     }
 
-    .modal-box input {
+    .box input,
+    .box textarea {
       width: 100%;
       padding: 13px;
       margin-bottom: 12px;
@@ -150,16 +153,62 @@
       font-size: 16px;
     }
 
+    .box textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+
     .close {
       float: right;
+      font-size: 26px;
       cursor: pointer;
-      font-size: 25px;
     }
 
     #message {
-      margin-top: 15px;
+      margin-top: 12px;
       line-height: 1.5;
       font-weight: bold;
+    }
+
+    #memberPanel {
+      display: none;
+      background: white;
+      padding: 50px 7%;
+      text-align: center;
+    }
+
+    .profile-box {
+      max-width: 650px;
+      margin: 30px auto 0;
+      padding: 30px;
+      border-radius: 15px;
+      background: #f5f7fa;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+    }
+
+    .profile-box input,
+    .profile-box textarea {
+      width: 100%;
+      padding: 13px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+      font-size: 16px;
+    }
+
+    .profile-box textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .welcome {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .email {
+      color: #666;
+      margin-bottom: 20px;
     }
 
     footer {
@@ -203,6 +252,7 @@
   </nav>
 </header>
 
+
 <section class="hero">
   <div class="hero-content">
 
@@ -224,7 +274,65 @@
   </div>
 </section>
 
+
+<!-- ÜYE PANELİ -->
+
+<section id="memberPanel">
+
+  <div class="welcome">
+    👋 Hoş geldin!
+  </div>
+
+  <div class="email" id="memberEmail"></div>
+
+  <div class="profile-box">
+
+    <h2>👤 Profilim</h2>
+
+    <input
+      type="text"
+      id="fullName"
+      placeholder="Ad Soyad"
+    >
+
+    <input
+      type="text"
+      id="country"
+      placeholder="Ülke"
+    >
+
+    <input
+      type="text"
+      id="city"
+      placeholder="Şehir"
+    >
+
+    <textarea
+      id="about"
+      placeholder="Kendinden bahset..."
+    ></textarea>
+
+    <button class="button" onclick="saveProfile()">
+      💾 Profili Kaydet
+    </button>
+
+    <button
+      class="button"
+      style="background:#333"
+      onclick="logout()"
+    >
+      🚪 Çıkış Yap
+    </button>
+
+    <p id="profileMessage"></p>
+
+  </div>
+
+</section>
+
+
 <section class="section" id="hakkimizda">
+
   <h2>Biz Kimiz?</h2>
 
   <p>
@@ -232,7 +340,9 @@
     birbirleriyle tanışmasını, iletişim kurmasını ve yasal iş
     birlikleri geliştirmesini amaçlayan bir topluluk platformudur.
   </p>
+
 </section>
+
 
 <section class="section" id="alanlar">
 
@@ -261,16 +371,20 @@
     </div>
 
   </div>
+
 </section>
+
 
 <footer id="iletisim">
   © 2026 Tüm Dünya Türk Birliği
 </footer>
 
 
+<!-- GİRİŞ / ÜYELİK -->
+
 <div class="modal" id="authModal">
 
-  <div class="modal-box">
+  <div class="box">
 
     <span class="close" onclick="closeAuth()">×</span>
 
@@ -290,7 +404,7 @@
 
     <button
       class="button"
-      style="width:100%;"
+      style="width:100%"
       onclick="authAction()"
     >
       Devam Et
@@ -304,6 +418,8 @@
 
 
 <script>
+
+  /* SUPABASE */
 
   const SUPABASE_URL =
     "https://vhpssjvgdgzsqmbihjim.supabase.co";
@@ -322,6 +438,8 @@
   let authMode = "register";
 
 
+  /* GİRİŞ PENCERESİ */
+
   function openAuth(mode) {
 
     authMode = mode;
@@ -329,7 +447,9 @@
     document.getElementById("authModal").style.display = "flex";
 
     document.getElementById("authTitle").innerText =
-      mode === "register" ? "Üye Ol" : "Giriş Yap";
+      mode === "register"
+        ? "Üye Ol"
+        : "Giriş Yap";
 
     document.getElementById("message").innerText = "";
 
@@ -342,6 +462,8 @@
 
   }
 
+
+  /* KAYIT / GİRİŞ */
 
   async function authAction() {
 
@@ -379,7 +501,7 @@
 
     if (authMode === "register") {
 
-      const { error } =
+      const { data, error } =
         await supabaseClient.auth.signUp({
           email: email,
           password: password
@@ -395,12 +517,26 @@
       }
 
 
-      message.innerText =
-        "Kayıt başarılı! E-posta adresini kontrol et.";
+      if (data.session) {
+
+        message.innerText =
+          "Kayıt başarılı!";
+
+        closeAuth();
+
+        await showMemberPanel();
+
+      } else {
+
+        message.innerText =
+          "Kayıt başarılı! E-posta adresini kontrol et.";
+
+      }
+
 
     } else {
 
-      const { error } =
+      const { data, error } =
         await supabaseClient.auth.signInWithPassword({
           email: email,
           password: password
@@ -417,12 +553,208 @@
 
 
       message.innerText =
-        "Giriş başarılı! Hoş geldin. 🌍";
+        "Giriş başarılı!";
+
+
+      closeAuth();
+
+      await showMemberPanel();
 
     }
 
   }
 
+
+  /* PROFİL PANELİ */
+
+  async function showMemberPanel() {
+
+    const {
+      data: {
+        user
+      }
+    } = await supabaseClient.auth.getUser();
+
+
+    if (!user) {
+      return;
+    }
+
+
+    document.getElementById("memberPanel").style.display =
+      "block";
+
+
+    document.getElementById("memberEmail").innerText =
+      user.email;
+
+
+    await loadProfile();
+
+    document.getElementById("memberPanel")
+      .scrollIntoView({
+        behavior: "smooth"
+      });
+
+  }
+
+
+  /* PROFİLİ GETİR */
+
+  async function loadProfile() {
+
+    const {
+      data: {
+        user
+      }
+    } = await supabaseClient.auth.getUser();
+
+
+    if (!user) {
+      return;
+    }
+
+
+    const {
+      data,
+      error
+    } = await supabaseClient
+      .from("profiles")
+      .select("*")
+      .eq("id", user.id)
+      .maybeSingle();
+
+
+    if (error) {
+
+      console.log(error);
+
+      return;
+    }
+
+
+    if (data) {
+
+      document.getElementById("fullName").value =
+        data.full_name || "";
+
+      document.getElementById("country").value =
+        data.country || "";
+
+      document.getElementById("city").value =
+        data.city || "";
+
+      document.getElementById("about").value =
+        data.about || "";
+
+    }
+
+  }
+
+
+  /* PROFİLİ KAYDET */
+
+  async function saveProfile() {
+
+    const {
+      data: {
+        user
+      }
+    } = await supabaseClient.auth.getUser();
+
+
+    if (!user) {
+
+      return;
+    }
+
+
+    const fullName =
+      document.getElementById("fullName").value.trim();
+
+    const country =
+      document.getElementById("country").value.trim();
+
+    const city =
+      document.getElementById("city").value.trim();
+
+    const about =
+      document.getElementById("about").value.trim();
+
+
+    const {
+      error
+    } = await supabaseClient
+      .from("profiles")
+      .update({
+        full_name: fullName,
+        country: country,
+        city: city,
+        about: about
+      })
+      .eq("id", user.id);
+
+
+    const message =
+      document.getElementById("profileMessage");
+
+
+    if (error) {
+
+      message.innerText =
+        "Profil kaydedilemedi: " + error.message;
+
+      return;
+    }
+
+
+    message.innerText =
+      "✅ Profil başarıyla kaydedildi.";
+
+  }
+
+
+  /* ÇIKIŞ */
+
+  async function logout() {
+
+    await supabaseClient.auth.signOut();
+
+    document.getElementById("memberPanel").style.display =
+      "none";
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+
+  }
+
+
+  /* SAYFA AÇILDIĞINDA OTURUM KONTROLÜ */
+
+  async function checkUser() {
+
+    const {
+      data: {
+        session
+      }
+    } = await supabaseClient.auth.getSession();
+
+
+    if (session) {
+
+      await showMemberPanel();
+
+    }
+
+  }
+
+
+  checkUser();
+
+
+  /* MODAL DIŞINA TIKLAYINCA KAPAT */
 
   window.onclick = function(event) {
 
