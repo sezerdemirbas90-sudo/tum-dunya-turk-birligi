@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Tüm Dünya Türk Birliği</title>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -16,225 +17,280 @@
 
     body {
       font-family: Arial, sans-serif;
-      background: #f5f7fa;
+      background: #f4f6f8;
       color: #222;
+      line-height: 1.6;
     }
 
     header {
-      background: #101820;
+      background: #111;
       color: white;
-      padding: 20px 7%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
+      padding: 18px 20px;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 20;
     }
 
-    .logo {
-      font-size: 22px;
+    header h1 {
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+
+    header p {
+      color: #ddd;
+      font-size: 14px;
+    }
+
+    nav {
+      margin-top: 12px;
+    }
+
+    nav button {
+      border: none;
+      background: #e31e24;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
       font-weight: bold;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin-left: 20px;
     }
 
     .hero {
-      min-height: 560px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: white;
       text-align: center;
-      padding: 60px 20px;
-      background: linear-gradient(135deg, #101820, #243746);
-      color: white;
+      padding: 70px 20px;
     }
 
-    .hero-content {
-      max-width: 850px;
-    }
-
-    .hero h1 {
-      font-size: 52px;
-      margin-bottom: 20px;
+    .hero h2 {
+      font-size: 38px;
+      margin-bottom: 18px;
     }
 
     .hero p {
-      font-size: 21px;
-      line-height: 1.6;
-      margin-bottom: 35px;
-    }
-
-    .button {
-      display: inline-block;
-      padding: 14px 28px;
-      border-radius: 8px;
-      background: #d71920;
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      margin: 5px;
-      border: none;
-      cursor: pointer;
-    }
-
-    .button.secondary {
-      background: transparent;
-      border: 1px solid white;
-    }
-
-    .section {
-      padding: 70px 7%;
-      text-align: center;
-    }
-
-    .section h2 {
-      font-size: 34px;
-      margin-bottom: 15px;
-    }
-
-    .section p {
       max-width: 750px;
       margin: auto;
-      line-height: 1.7;
+      color: #555;
+      font-size: 18px;
+    }
+
+    .container {
+      width: 92%;
+      max-width: 1000px;
+      margin: 35px auto;
     }
 
     .cards {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      margin-top: 40px;
+      gap: 18px;
     }
 
     .card {
       background: white;
-      padding: 30px 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+      padding: 25px 18px;
+      border-radius: 14px;
+      text-align: center;
+      box-shadow: 0 3px 12px rgba(0,0,0,.07);
     }
 
     .card h3 {
+      margin: 10px 0;
+    }
+
+    .card p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    .member-panel {
+      display: none;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      margin: 35px auto;
+      max-width: 900px;
+      box-shadow: 0 4px 18px rgba(0,0,0,.08);
+    }
+
+    .member-panel h2 {
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .member-email {
+      text-align: center;
+      color: #777;
+      margin-bottom: 25px;
+    }
+
+    .profile-box {
+      background: #f5f7fa;
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
       margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .btn-red {
+      background: #e31e24;
+      color: white;
+    }
+
+    .btn-dark {
+      background: #222;
+      color: white;
+    }
+
+    .message {
+      margin-top: 12px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .search-section {
+      margin-top: 35px;
+      padding-top: 25px;
+      border-top: 1px solid #ddd;
+    }
+
+    .search-section h3 {
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .member-card {
+      background: white;
+      border: 1px solid #ddd;
+      padding: 16px;
+      border-radius: 10px;
+      margin-top: 12px;
+    }
+
+    .member-card strong {
+      font-size: 18px;
+    }
+
+    .member-card small {
+      color: #666;
+    }
+
+    .empty {
+      text-align: center;
+      color: #777;
+      padding: 15px;
+    }
+
+    footer {
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 25px;
+      margin-top: 50px;
     }
 
     .modal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.7);
+      background: rgba(0,0,0,.65);
+      z-index: 100;
       align-items: center;
       justify-content: center;
-      z-index: 9999;
+      padding: 20px;
     }
 
-    .box {
+    .modal-box {
       background: white;
-      width: 92%;
-      max-width: 460px;
+      width: 100%;
+      max-width: 430px;
       padding: 30px;
       border-radius: 15px;
-      max-height: 90vh;
-      overflow-y: auto;
     }
 
-    .box h2 {
+    .modal-box h2 {
+      text-align: center;
       margin-bottom: 20px;
     }
 
-    .box input,
-    .box textarea {
+    .modal-box button {
       width: 100%;
-      padding: 13px;
-      margin-bottom: 12px;
-      border: 1px solid #ccc;
-      border-radius: 7px;
-      font-size: 16px;
+      margin-top: 5px;
     }
 
-    .box textarea {
-      min-height: 110px;
-      resize: vertical;
-    }
-
-    .close {
-      float: right;
-      font-size: 26px;
+    .switch {
+      text-align: center;
+      margin-top: 15px;
+      color: #555;
       cursor: pointer;
     }
 
-    #message {
-      margin-top: 12px;
-      line-height: 1.5;
-      font-weight: bold;
-    }
-
-    #memberPanel {
-      display: none;
-      background: white;
-      padding: 50px 7%;
+    .error {
+      color: #d00;
       text-align: center;
+      margin-top: 10px;
+      font-size: 14px;
     }
 
-    .profile-box {
-      max-width: 650px;
-      margin: 30px auto 0;
-      padding: 30px;
-      border-radius: 15px;
-      background: #f5f7fa;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
-    }
-
-    .profile-box input,
-    .profile-box textarea {
-      width: 100%;
-      padding: 13px;
-      margin-bottom: 12px;
-      border: 1px solid #ccc;
-      border-radius: 7px;
-      font-size: 16px;
-    }
-
-    .profile-box textarea {
-      min-height: 120px;
-      resize: vertical;
-    }
-
-    .welcome {
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-
-    .email {
-      color: #666;
-      margin-bottom: 20px;
-    }
-
-    footer {
-      background: #101820;
-      color: white;
+    .success {
+      color: green;
       text-align: center;
-      padding: 30px;
+      margin-top: 10px;
+      font-size: 14px;
     }
 
     @media (max-width: 800px) {
-      header {
-        flex-direction: column;
-      }
-
-      .hero h1 {
-        font-size: 38px;
-      }
-
       .cards {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero h2 {
+        font-size: 28px;
       }
     }
 
     @media (max-width: 500px) {
       .cards {
         grid-template-columns: 1fr;
+      }
+
+      .member-panel {
+        padding: 18px;
+      }
+
+      .buttons {
+        flex-direction: column;
+      }
+
+      .btn {
+        width: 100%;
       }
     }
   </style>
@@ -243,33 +299,48 @@
 <body>
 
 <header>
-  <div class="logo">🌍 TÜM DÜNYA TÜRK BİRLİĞİ</div>
+  <h1>🌍 Tüm Dünya Türk Birliği</h1>
+  <p>Dünyanın neresinde olursak olalım, birbirimizi bulalım.</p>
 
   <nav>
-    <a href="#hakkimizda">Hakkımızda</a>
-    <a href="#alanlar">Alanlar</a>
-    <a href="#iletisim">İletişim</a>
+    <button onclick="openAuth()">Üye Ol / Giriş Yap</button>
   </nav>
 </header>
 
-
 <section class="hero">
-  <div class="hero-content">
+  <h2>Dünyanın Neresinde Olursak Olalım, Birbirimizi Bulalım.</h2>
+  <p>
+    Aynı dili, kültürü ve değerleri paylaşan insanları bir araya getiren
+    büyük bir Türk topluluğu oluşturuyoruz.
+  </p>
+</section>
 
-    <h1>Dünyanın Neresinde Olursak Olalım, Birbirimizi Bulalım.</h1>
+<section class="container">
+  <div class="cards">
 
-    <p>
-      Dünyanın farklı ülkelerinde yaşayan Türkleri bir araya getiren;
-      dayanışma, ticaret, iş birliği, eğitim ve kültürel paylaşım platformu.
-    </p>
+    <div class="card">
+      <div style="font-size:40px;">👤</div>
+      <h3>Üyelik</h3>
+      <p>Kendine ait bir profil oluştur.</p>
+    </div>
 
-    <button class="button" onclick="openAuth('register')">
-      Üye Ol
-    </button>
+    <div class="card">
+      <div style="font-size:40px;">💬</div>
+      <h3>Mesajlaşma</h3>
+      <p>Diğer üyelerle iletişim kur.</p>
+    </div>
 
-    <button class="button secondary" onclick="openAuth('login')">
-      Giriş Yap
-    </button>
+    <div class="card">
+      <div style="font-size:40px;">🤝</div>
+      <h3>İş Birliği</h3>
+      <p>Yeni bağlantılar ve iş fırsatları oluştur.</p>
+    </div>
+
+    <div class="card">
+      <div style="font-size:40px;">🌍</div>
+      <h3>Dünya</h3>
+      <p>Dünyanın farklı yerlerindeki Türkleri bul.</p>
+    </div>
 
   </div>
 </section>
@@ -277,33 +348,31 @@
 
 <!-- ÜYE PANELİ -->
 
-<section id="memberPanel">
+<section id="memberPanel" class="member-panel">
 
-  <div class="welcome">
-    👋 Hoş geldin!
-  </div>
+  <h2>👋 Hoş geldin!</h2>
 
-  <div class="email" id="memberEmail"></div>
+  <div id="memberEmail" class="member-email"></div>
 
   <div class="profile-box">
 
-    <h2>👤 Profilim</h2>
+    <h3 style="margin-bottom:15px;">👤 Profilim</h3>
 
     <input
-      type="text"
       id="fullName"
+      type="text"
       placeholder="Ad Soyad"
     >
 
     <input
-      type="text"
       id="country"
+      type="text"
       placeholder="Ülke"
     >
 
     <input
-      type="text"
       id="city"
+      type="text"
       placeholder="Şehir"
     >
 
@@ -312,62 +381,46 @@
       placeholder="Kendinden bahset..."
     ></textarea>
 
-    <button class="button" onclick="saveProfile()">
-      💾 Profili Kaydet
-    </button>
+    <div class="buttons">
 
-    <button
-      class="button"
-      style="background:#333"
-      onclick="logout()"
+      <button
+        class="btn btn-red"
+        onclick="saveProfile()"
+      >
+        💾 Profili Kaydet
+      </button>
+
+      <button
+        class="btn btn-dark"
+        onclick="logout()"
+      >
+        🚪 Çıkış Yap
+      </button>
+
+    </div>
+
+    <div id="profileMessage" class="message"></div>
+
+  </div>
+
+
+  <!-- ÜYE ARAMA -->
+
+  <div id="memberSearchSection" class="search-section">
+
+    <h3>👥 Üyeleri Bul</h3>
+
+    <input
+      id="memberSearch"
+      type="text"
+      placeholder="İsim, ülke veya şehir ara..."
+      oninput="searchMembers()"
     >
-      🚪 Çıkış Yap
-    </button>
 
-    <p id="profileMessage"></p>
-
-  </div>
-
-</section>
-
-
-<section class="section" id="hakkimizda">
-
-  <h2>Biz Kimiz?</h2>
-
-  <p>
-    Tüm Dünya Türk Birliği; farklı ülkelerde yaşayan Türklerin
-    birbirleriyle tanışmasını, iletişim kurmasını ve yasal iş
-    birlikleri geliştirmesini amaçlayan bir topluluk platformudur.
-  </p>
-
-</section>
-
-
-<section class="section" id="alanlar">
-
-  <h2>Platformda Neler Olacak?</h2>
-
-  <div class="cards">
-
-    <div class="card">
-      <h3>👤 Üyelik</h3>
-      <p>Kendi profilini oluştur, diğer üyelerle bağlantı kur.</p>
-    </div>
-
-    <div class="card">
-      <h3>💬 Mesajlaşma</h3>
-      <p>Üyeler arasında özel iletişim ve mesajlaşma.</p>
-    </div>
-
-    <div class="card">
-      <h3>🤝 İş Birliği</h3>
-      <p>Ticaret ve iş fırsatları için bağlantılar oluştur.</p>
-    </div>
-
-    <div class="card">
-      <h3>🌍 Dünya</h3>
-      <p>Farklı ülkelerdeki Türklerle iletişim kur.</p>
+    <div id="memberList">
+      <div class="empty">
+        Üyeler yükleniyor...
+      </div>
     </div>
 
   </div>
@@ -375,58 +428,75 @@
 </section>
 
 
-<footer id="iletisim">
-  © 2026 Tüm Dünya Türk Birliği
-</footer>
+<!-- AUTH MODAL -->
 
+<div id="authModal" class="modal">
 
-<!-- GİRİŞ / ÜYELİK -->
+  <div class="modal-box">
 
-<div class="modal" id="authModal">
-
-  <div class="box">
-
-    <span class="close" onclick="closeAuth()">×</span>
-
-    <h2 id="authTitle">Üye Ol</h2>
+    <h2 id="authTitle">🔐 Üye Ol</h2>
 
     <input
       id="email"
       type="email"
-      placeholder="E-posta adresiniz"
+      placeholder="E-posta"
     >
 
     <input
       id="password"
       type="password"
-      placeholder="Şifreniz"
+      placeholder="Şifre"
     >
 
     <button
-      class="button"
-      style="width:100%"
+      class="btn btn-red"
       onclick="authAction()"
     >
       Devam Et
     </button>
 
-    <p id="message"></p>
+    <div
+      id="authMessage"
+      class="error"
+    ></div>
+
+    <div
+      id="authSwitch"
+      class="switch"
+      onclick="toggleAuthMode()"
+    >
+      Zaten hesabın var mı? Giriş yap
+    </div>
+
+    <button
+      class="btn btn-dark"
+      style="margin-top:15px;"
+      onclick="closeAuth()"
+    >
+      Kapat
+    </button>
 
   </div>
 
 </div>
 
 
+<footer>
+  © 2026 Tüm Dünya Türk Birliği
+</footer>
+
+
 <script>
 
-  /* SUPABASE */
+  /* =====================================
+     SUPABASE BAĞLANTISI
+  ===================================== */
 
   const SUPABASE_URL =
     "https://vhpssjvgdgzsqmbihjim.supabase.co";
 
   const SUPABASE_KEY =
     "sb_publishable_c3X-c0y3fo1ZjZiMMFjxxg_OVQ4LnxN";
-
 
   const supabaseClient =
     window.supabase.createClient(
@@ -435,23 +505,16 @@
     );
 
 
+  /* =====================================
+     AUTH
+  ===================================== */
+
   let authMode = "register";
 
 
-  /* GİRİŞ PENCERESİ */
-
-  function openAuth(mode) {
-
-    authMode = mode;
+  function openAuth() {
 
     document.getElementById("authModal").style.display = "flex";
-
-    document.getElementById("authTitle").innerText =
-      mode === "register"
-        ? "Üye Ol"
-        : "Giriş Yap";
-
-    document.getElementById("message").innerText = "";
 
   }
 
@@ -460,10 +523,46 @@
 
     document.getElementById("authModal").style.display = "none";
 
+    document.getElementById("authMessage").innerText = "";
+
   }
 
 
-  /* KAYIT / GİRİŞ */
+  function toggleAuthMode() {
+
+    const title =
+      document.getElementById("authTitle");
+
+    const switchText =
+      document.getElementById("authSwitch");
+
+    const message =
+      document.getElementById("authMessage");
+
+    message.innerText = "";
+
+    if (authMode === "register") {
+
+      authMode = "login";
+
+      title.innerText = "🔐 Giriş Yap";
+
+      switchText.innerText =
+        "Hesabın yok mu? Üye ol";
+
+    } else {
+
+      authMode = "register";
+
+      title.innerText = "🔐 Üye Ol";
+
+      switchText.innerText =
+        "Zaten hesabın var mı? Giriş yap";
+
+    }
+
+  }
+
 
   async function authAction() {
 
@@ -474,86 +573,73 @@
       document.getElementById("password").value;
 
     const message =
-      document.getElementById("message");
+      document.getElementById("authMessage");
 
 
     if (!email || !password) {
 
       message.innerText =
-        "E-posta ve şifreyi doldur.";
+        "E-posta ve şifre gerekli.";
 
       return;
+
     }
 
 
-    if (password.length < 6) {
-
-      message.innerText =
-        "Şifre en az 6 karakter olmalı.";
-
-      return;
-    }
-
-
-    message.innerText =
-      "İşlem yapılıyor...";
+    message.innerText = "İşlem yapılıyor...";
 
 
     if (authMode === "register") {
 
       const { data, error } =
         await supabaseClient.auth.signUp({
+
           email: email,
+
           password: password
+
         });
 
 
       if (error) {
 
         message.innerText =
-          "Kayıt hatası: " + error.message;
+          error.message;
 
         return;
-      }
-
-
-      if (data.session) {
-
-        message.innerText =
-          "Kayıt başarılı!";
-
-        closeAuth();
-
-        await showMemberPanel();
-
-      } else {
-
-        message.innerText =
-          "Kayıt başarılı! E-posta adresini kontrol et.";
 
       }
 
 
-    } else {
+      message.className = "success";
+
+      message.innerText =
+        "Kayıt başarılı. Giriş yapabilirsin.";
+
+    }
+
+    else {
 
       const { data, error } =
         await supabaseClient.auth.signInWithPassword({
+
           email: email,
+
           password: password
+
         });
 
 
       if (error) {
 
+        message.className = "error";
+
         message.innerText =
-          "Giriş hatası: " + error.message;
+          error.message;
 
         return;
+
       }
-
-
-      message.innerText =
-        "Giriş başarılı!";
 
 
       closeAuth();
@@ -565,7 +651,9 @@
   }
 
 
-  /* PROFİL PANELİ */
+  /* =====================================
+     PROFİL PANELİ
+  ===================================== */
 
   async function showMemberPanel() {
 
@@ -573,12 +661,11 @@
       data: {
         user
       }
-    } = await supabaseClient.auth.getUser();
+    } =
+      await supabaseClient.auth.getUser();
 
 
-    if (!user) {
-      return;
-    }
+    if (!user) return;
 
 
     document.getElementById("memberPanel").style.display =
@@ -591,6 +678,9 @@
 
     await loadProfile();
 
+    await searchMembers();
+
+
     document.getElementById("memberPanel")
       .scrollIntoView({
         behavior: "smooth"
@@ -599,7 +689,9 @@
   }
 
 
-  /* PROFİLİ GETİR */
+  /* =====================================
+     PROFİL YÜKLE
+  ===================================== */
 
   async function loadProfile() {
 
@@ -607,22 +699,22 @@
       data: {
         user
       }
-    } = await supabaseClient.auth.getUser();
+    } =
+      await supabaseClient.auth.getUser();
 
 
-    if (!user) {
-      return;
-    }
+    if (!user) return;
 
 
     const {
       data,
       error
-    } = await supabaseClient
-      .from("profiles")
-      .select("*")
-      .eq("id", user.id)
-      .maybeSingle();
+    } =
+      await supabaseClient
+        .from("profiles")
+        .select("*")
+        .eq("id", user.id)
+        .maybeSingle();
 
 
     if (error) {
@@ -630,6 +722,7 @@
       console.log(error);
 
       return;
+
     }
 
 
@@ -652,7 +745,9 @@
   }
 
 
-  /* PROFİLİ KAYDET */
+  /* =====================================
+     PROFİL KAYDET
+  ===================================== */
 
   async function saveProfile() {
 
@@ -660,13 +755,11 @@
       data: {
         user
       }
-    } = await supabaseClient.auth.getUser();
+    } =
+      await supabaseClient.auth.getUser();
 
 
-    if (!user) {
-
-      return;
-    }
+    if (!user) return;
 
 
     const fullName =
@@ -684,15 +777,21 @@
 
     const {
       error
-    } = await supabaseClient
-      .from("profiles")
-      .update({
-        full_name: fullName,
-        country: country,
-        city: city,
-        about: about
-      })
-      .eq("id", user.id);
+    } =
+      await supabaseClient
+        .from("profiles")
+        .update({
+
+          full_name: fullName,
+
+          country: country,
+
+          city: city,
+
+          about: about
+
+        })
+        .eq("id", user.id);
 
 
     const message =
@@ -701,12 +800,18 @@
 
     if (error) {
 
+      message.style.color = "red";
+
       message.innerText =
-        "Profil kaydedilemedi: " + error.message;
+        "Profil kaydedilemedi: " +
+        error.message;
 
       return;
+
     }
 
+
+    message.style.color = "green";
 
     message.innerText =
       "✅ Profil başarıyla kaydedildi.";
@@ -714,24 +819,182 @@
   }
 
 
-  /* ÇIKIŞ */
+  /* =====================================
+     ÜYE ARAMA
+  ===================================== */
+
+  async function searchMembers() {
+
+    const search =
+      document.getElementById("memberSearch")
+        .value
+        .trim()
+        .toLowerCase();
+
+
+    const list =
+      document.getElementById("memberList");
+
+
+    const {
+      data,
+      error
+    } =
+      await supabaseClient
+        .from("profiles")
+        .select(
+          "id, full_name, country, city, about"
+        )
+        .order(
+          "full_name",
+          {
+            ascending: true
+          }
+        );
+
+
+    if (error) {
+
+      list.innerHTML =
+        '<div class="empty">Üyeler yüklenemedi.</div>';
+
+      console.log(error);
+
+      return;
+
+    }
+
+
+    const filtered =
+      data.filter(member => {
+
+        const name =
+          (member.full_name || "")
+            .toLowerCase();
+
+        const country =
+          (member.country || "")
+            .toLowerCase();
+
+        const city =
+          (member.city || "")
+            .toLowerCase();
+
+
+        return (
+          name.includes(search) ||
+          country.includes(search) ||
+          city.includes(search)
+        );
+
+      });
+
+
+    if (filtered.length === 0) {
+
+      list.innerHTML =
+        '<div class="empty">Üye bulunamadı.</div>';
+
+      return;
+
+    }
+
+
+    list.innerHTML =
+      filtered
+        .map(member => {
+
+          const name =
+            escapeHtml(
+              member.full_name ||
+              "İsimsiz Üye"
+            );
+
+          const country =
+            escapeHtml(
+              member.country || "-"
+            );
+
+          const city =
+            escapeHtml(
+              member.city || "-"
+            );
+
+          const about =
+            escapeHtml(
+              member.about || ""
+            );
+
+
+          return `
+            <div class="member-card">
+
+              <strong>
+                👤 ${name}
+              </strong>
+
+              <br>
+
+              🌍 ${country} / ${city}
+
+              <br>
+
+              <small>
+                ${about}
+              </small>
+
+            </div>
+          `;
+
+        })
+        .join("");
+
+  }
+
+
+  /* =====================================
+     GÜVENLİ METİN
+  ===================================== */
+
+  function escapeHtml(text) {
+
+    const div =
+      document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+
+  }
+
+
+  /* =====================================
+     ÇIKIŞ
+  ===================================== */
 
   async function logout() {
 
     await supabaseClient.auth.signOut();
 
-    document.getElementById("memberPanel").style.display =
-      "none";
+
+    document.getElementById("memberPanel")
+      .style.display = "none";
+
 
     window.scrollTo({
+
       top: 0,
+
       behavior: "smooth"
+
     });
 
   }
 
 
-  /* SAYFA AÇILDIĞINDA OTURUM KONTROLÜ */
+  /* =====================================
+     SAYFA AÇILINCA OTURUM KONTROLÜ
+  ===================================== */
 
   async function checkUser() {
 
@@ -739,7 +1002,8 @@
       data: {
         session
       }
-    } = await supabaseClient.auth.getSession();
+    } =
+      await supabaseClient.auth.getSession();
 
 
     if (session) {
@@ -754,12 +1018,15 @@
   checkUser();
 
 
-  /* MODAL DIŞINA TIKLAYINCA KAPAT */
+  /* =====================================
+     MODAL DIŞINA TIKLAYINCA KAPAT
+  ===================================== */
 
   window.onclick = function(event) {
 
     const modal =
       document.getElementById("authModal");
+
 
     if (event.target === modal) {
 
