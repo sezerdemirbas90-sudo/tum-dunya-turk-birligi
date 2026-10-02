@@ -1038,8 +1038,221 @@
 </script>
 <script>
 function openMessages() {
-  alert("💬 Mesajlaşma bölümü açıldı. Şimdi gerçek mesaj ekranını bağlıyoruz.");
+  let modal = document.getElementById("messagesModal");
+
+  if (!modal) {
+    modal = document.createElement("div");
+    modal.id = "messagesModal";
+    modal.className = "modal";
+
+    modal.innerHTML = `
+      <div class="modal-box" style="max-width:650px;">
+        <h2>💬 Mesajlaşma</h2>
+
+        <select id="messageReceiver"
+          style="width:100%;padding:13px;border:1px solid #ccc;border-radius:8px;margin-bottom:12px;">
+          <option value="">Üye seç...</option>
+        </select>
+
+        <div id="messagesList"
+          style="height:260px;overflow-y:auto;border:1px solid #ddd;border-radius:10px;padding:12px;margin-bottom:12px;">
+          <div class="empty">Önce bir üye seç.</div>
+        </div>
+
+        <textarea id="messageText"
+          placeholder="Mesajını yaz..."
+          style="min-height:80px;"></textarea>
+
+        <button class="btn btn-red" onclick="sendMessage()">
+          📩 Mesaj Gönder
+        </button>
+
+        <button class="btn btn-dark" onclick="closeMessages()">
+          Kapat
+        </button>
+
+        <div id="messageStatus" class="message"></div>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    document.getElementById("messageReceiver")
+      .addEventListener("change", loadMessages);
+  }
+
+  modal.style.display = "flex";
+  loadMessageMembers();
 }
+
+
+async function loadMessageMembers() {
+  const select = document.getElementById("messageReceiver");
+
+  const {
+    data: { user }
+  } = await supabaseClient.auth.getUser();
+
+  if (!user) return;
+
+  const { data, error } = await supabaseClient
+    .from("profiles")
+    .select("id, full_name, country, city")
+    .neq("id", user.id)
+    .order("full_name", { ascending: true });
+
+  if (error) {
+    console.log(error);
+    return;
+  }
+
+  select.innerHTML = '<option value="">Üye seç...</option>';
+
+  data.forEach(member => {
+    const option = document.createElement("option");
+
+    option.value = member.id;
+
+    option.textContent =
+      (member.full_name || "İsimsiz Üye") +
+      " — " +
+      (member.country || "-") +
+      " / " +
+      (member.city || "-");
+
+    select.appendChild(option);
+  });
+}
+
+
+async function loadMessages() {
+  const receiverId =
+    document.getElementById("messageReceiver").value;
+
+  const list =
+    document.getElementById("messagesList");
+
+  if (!receiverId) {
+    list.innerHTML =
+      '<div class="empty">Önce bir üye seç.</div>';
+    return;
+  }
+
+  const {
+    data: { user }
+  } = await supabaseClient.auth.getUser();
+
+  if (!user) return;
+
+  const { data, error } = await supabaseClient
+    .from("messages")
+    .select("*")
+    .or(
+      `and(sender_id.eq.${user.id},receiver_id.eq.${receiverId}),and(sender_id.eq.${receiverId},receiver_id.eq.${user.id})`
+    )
+    .order("created_at", { ascending: true });
+
+  if (error) {
+    console.log(error);
+    list.innerHTML =
+      '<div class="empty">Mesajlar yüklenemedi.</div>';
+    return;
+  }
+
+  if (!data.length) {
+    list.innerHTML =
+      '<div class="empty">Henüz mesaj yok. İlk mesajı sen gönder.</div>';
+    return;
+  }
+
+  list.innerHTML = data.map(message => `
+    <div style="
+      padding:10px;
+      margin-bottom:8px;
+      border-radius:8px;
+      background:${message.sender_id === user.id ? "#ffe5e5" : "#f1f1f1"};
+    ">
+      <strong>
+        ${message.sender_id === user.id ? "Sen" : "Üye"}
+      </strong>
+
+      <div>${escapeHtml(message.content)}</div>
+
+      <small style="color:#777;">
+        ${new Date(message.created_at).toLocaleString("tr-TR")}
+      </small>
+    </div>
+  `).join("");
+
+  list.scrollTop = list.scrollHeight;
+}
+
+
+async function sendMessage() {
+  const receiverId =
+    document.getElementById("messageReceiver").value;
+
+  const text =
+    document.getElementById("messageText").value.trim();
+
+  const status =
+    document.getElementById("messageStatus");
+
+  if (!receiverId) {
+    status.style.color = "red";
+    status.innerText = "Önce bir üye seç.";
+    return;
+  }
+
+  if (!text) {
+    status.style.color = "red";
+    status.innerText = "Mesaj boş olamaz.";
+    return;
+  }
+
+  const {
+    data: { user }
+  } = await supabaseClient.auth.getUser();
+
+  if (!user) {
+    status.style.color = "red";
+    status.innerText = "Önce giriş yapmalısın.";
+    return;
+  }
+
+  const { error } = await supabaseClient
+    .from("messages")
+    .insert({
+      sender_id: user.id,
+      receiver_id: receiverId,
+      content: text
+    });
+
+  if (error) {
+    console.log(error);
+    status.style.color = "red";
+    status.innerText = "Mesaj gönderilemedi.";
+    return;
+  }
+
+  document.getElementById("messageText").value = "";
+
+  status.style.color = "green";
+  status.innerText = "✅ Mesaj gönderildi.";
+
+  await loadMessages();
+}
+
+
+function closeMessages() {
+  const modal =
+    document.getElementById("messagesModal");
+
+  if (modal) {
+    modal.style.display = "none";
+  }
+}
+ 
 </script>
 </body>
 </html>
