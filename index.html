@@ -750,8 +750,7 @@
   ===================================== */
 
   async function saveProfile() {
-,
-    
+
     const {
       data: {
         user
@@ -781,8 +780,8 @@
     } =
       await supabaseClient
         .from("profiles")
-        .upsert({
-id: user.id,
+        .update({
+
           full_name: fullName,
 
           country: country,
@@ -792,7 +791,7 @@ id: user.id,
           about: about
 
         })
-      
+        .eq("id", user.id);
 
 
     const message =
